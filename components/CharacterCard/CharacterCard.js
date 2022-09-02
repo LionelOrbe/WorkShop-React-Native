@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export default function CharacterCard({image, name, id}) {
-
+  
     const navigation = useNavigation();
     const styles = StyleSheet.create({
         container: {
           backgroundColor: '#444444',
-          justifyContent: 'flexstart',
+          // justifyContent: 'flexstart',
           alignItems: 'center',
           flexDirection: "row",
         //   borderWidth: 1,
@@ -36,13 +36,19 @@ export default function CharacterCard({image, name, id}) {
             color: '#EDEDED',
             fontWeight: 'bold',
         },
+        image:{
+          width: 40, 
+          height: 40, 
+          marginLeft: 15,
+          borderRadius: 50
+        },
         
       });
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Detail', {id})}>
     <View style={[styles.container, styles.shadow]}>
-	  <Image source={image} style={{ width: 35, height: 35, borderRadius: 50, marginLeft: 10 }}/>
+	  <Image source={{uri: image}} style={styles.image} resizeMode='contain'/>
       <Text style={styles.text}>{name}</Text>
     </View>
     </TouchableOpacity>
