@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Text, View, FlatList, ActivityIndicator, Dimensions, Alert } from 'react-native';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import apiParams from '../../config.js';
 import axios from 'axios';
 import { Searchbar } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
   const { ts, apikey, hash, baseURL } = apiParams;
   const [search, setSearch] = useState('');
   const [isLoading2, setLoading2] = useState(true);
+  const flatListRef = useRef()
  
  
     
@@ -69,7 +71,7 @@ export default function Home() {
       .finally(() => {setLoading(false); setLoading2(false)});
   }
  
-  //  console.log('Data', data)
+   console.log('Data', data.length)
   return (
     <View style={{backgroundColor: '#171717'}}>
       {isLoading 
@@ -77,6 +79,7 @@ export default function Home() {
         : 
                  
           <FlatList
+            ref={flatListRef}
             data={data}
             keyExtractor={({ id }) => id.toString()}
             renderItem={({ item }) => (
@@ -99,6 +102,15 @@ export default function Home() {
             ListFooterComponent={isLoading2? <ActivityIndicator size="large" color="#DA0037"/> : null}  
                  />
       }
+      {
+       data.length>50? <MaterialCommunityIcons 
+       style={{position: 'absolute', right: 20, bottom: 20}} 
+       name="chevron-up-circle-outline" 
+       color='#EDEDED' size={50} 
+       onPress={() => {flatListRef.current.scrollToOffset({ animated: true, offset: 0 })}} /> :null
+
+      }
+      
     </View>
   );
 }

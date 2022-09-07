@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Text, View,  Image, TouchableOpacity,StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function CharacterCard({image, name, id}) {
@@ -9,7 +11,7 @@ export default function CharacterCard({image, name, id}) {
     const styles = StyleSheet.create({
         container: {
           backgroundColor: '#444444',
-          // justifyContent: 'flexstart',
+          justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: "row",
         //   borderWidth: 1,
@@ -32,7 +34,7 @@ export default function CharacterCard({image, name, id}) {
             elevation: 16,
         },
         text:{
-            marginLeft: 10,
+            
             color: '#EDEDED',
             fontWeight: 'bold',
         },
@@ -42,15 +44,32 @@ export default function CharacterCard({image, name, id}) {
           marginLeft: 15,
           borderRadius: 50
         },
+        small:{
+          fontSize: 10
+        }
         
       });
 
+      async function like (){
+        try {
+          await AsyncStorage.setItem('likes', 'hola')
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Detail', {id})}>
     <View style={[styles.container, styles.shadow]}>
-	  <Image source={{uri: image}} style={styles.image} resizeMode='contain'/>
-      <Text style={styles.text}>{name}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail', {id})}>
+        <View style={{flexDirection: 'row', alignItems: 'center', width: '90%'}}>
+        <Image source={{uri: image}} style={styles.image} resizeMode='contain'/>
+        <Text style={[styles.text, name.length>32? styles.small: null]}>{name}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>like()}>
+      <MaterialCommunityIcons name="heart-outline" color='red' size={22} style={{marginRight: 5}} />
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
+    
   );
 }
