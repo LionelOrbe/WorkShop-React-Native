@@ -52,6 +52,7 @@ export default function CharacterCard({image, name, id}) {
 
       async function like (){
         try {
+          console.log('hola')
           await AsyncStorage.setItem('likes', 'hola')
         } catch (e) {
           console.log(e)
@@ -66,7 +67,7 @@ export default function CharacterCard({image, name, id}) {
         <Text style={[styles.text, name.length>32? styles.small: null]}>{name}</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=>like()}>
+      <TouchableOpacity onPress={like}>
       <MaterialCommunityIcons name="heart-outline" color='red' size={22} style={{marginRight: 5}} />
       </TouchableOpacity>
     </View>

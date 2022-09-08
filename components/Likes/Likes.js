@@ -8,22 +8,26 @@ export default function Likes(){
     useEffect(() => {
       async () => {
         try {
-          const jsonValue = await AsyncStorage.getItem('likes')
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
-        } catch(e) {
-          console.log(e)
+            const value = await AsyncStorage.getItem('likes')
+            if(value !== null) {
+                console.log('VALOR',value)
+                setLikes(value)
+              // value previously stored
+            }
+          } catch(e) {
+            console.log(e)
         }
-        setLikes(jsonValue)
+        console.log(value)
       }
              
-    }, []);
+    }, [likes]);
 
     console.log('Likes', likes)
 
     return(
         <View>
-            <Text>Likes</Text>
-            <FlatList
+            <Text>Likes {likes}</Text>
+            {/* <FlatList
             // ref={flatListRef}
             data={likes}
             keyExtractor={({ id }) => id.toString()}
@@ -35,7 +39,7 @@ export default function Likes(){
                   )}
                         
             
-                 />
+                 /> */}
         </View>
     )
 }
