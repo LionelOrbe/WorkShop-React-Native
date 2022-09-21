@@ -3,6 +3,8 @@ import { View, ActivityIndicator, Text, Image, FlatList } from 'react-native';
 import Comic from './Comic.js';
 import apiParams from '../../config.js';
 import axios from 'axios';
+import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
+
 
 export default function Comics({ listComics }) {
 

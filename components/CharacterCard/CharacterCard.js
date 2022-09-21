@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { Text, View,  Image, TouchableOpacity,StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { Text, View,  Image, TouchableOpacity,StyleSheet  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default function CharacterCard({image, name, id}) {
@@ -34,7 +33,7 @@ export default function CharacterCard({image, name, id}) {
             elevation: 16,
         },
         text:{
-            
+            marginLeft:12,
             color: '#EDEDED',
             fontWeight: 'bold',
         },
@@ -50,27 +49,17 @@ export default function CharacterCard({image, name, id}) {
         
       });
 
-      async function like (){
-        try {
-          console.log('hola')
-          await AsyncStorage.setItem('likes', 'hola')
-        } catch (e) {
-          console.log(e)
-        }
-      }
+    
 
   return (
-    <View style={[styles.container, styles.shadow]}>
-      <TouchableOpacity onPress={() => navigation.navigate('Detail', {id})}>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: '90%'}}>
-        <Image source={{uri: image}} style={styles.image} resizeMode='contain'/>
-        <Text style={[styles.text, name.length>32? styles.small: null]}>{name}</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={like}>
-      <MaterialCommunityIcons name="heart-outline" color='red' size={22} style={{marginRight: 5}} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('Detail', {id})}>
+      <View style={[styles.container, styles.shadow]}>
+          <View style={{flexDirection: 'row', alignItems: 'center', width: '90%', }}>
+          <Image source={{uri: image}} style={styles.image} resizeMode='contain'/>
+          <Text style={[styles.text, name.length>32? styles.small: null]}>{name}</Text>
+          </View>
+      </View>
+    </TouchableOpacity>
     
   );
 }

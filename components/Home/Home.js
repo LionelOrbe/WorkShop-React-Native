@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Text, View, FlatList, ActivityIndicator, Dimensions, Alert } from 'react-native';
+import { Text, View, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import apiParams from '../../config.js';
 import axios from 'axios';
 import { Searchbar } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getLikes } from '../../redux/actions';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
 
@@ -15,14 +17,17 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [isLoading2, setLoading2] = useState(true);
   const flatListRef = useRef()
- 
+  const dispatch= useDispatch()
+  const {likes} = useSelector(state => state) 
+  const navigation = useNavigation();
  
     
 
   useEffect(() => {
     getData();
+    dispatch(getLikes())
            
-  }, []);
+  }, [likes]);
 
   function searchCharacter() {
     if(search) {
@@ -71,9 +76,14 @@ export default function Home() {
       .finally(() => {setLoading(false); setLoading2(false)});
   }
  
-   console.log('Data', data.length)
+  //  console.log('Data', data.length)
   return (
     <View style={{backgroundColor: '#171717'}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Likes')}>
+        {!likes.length==0? <MaterialCommunityIcons name="heart" color='red' size={25}  /> :
+                <MaterialCommunityIcons name="heart-outline" color='red' size={25}  />
+              }
+      </TouchableOpacity>
       {isLoading 
         ? <ActivityIndicator size="large" color="#DA0037" style={{marginTop: 100}}/>
         : 

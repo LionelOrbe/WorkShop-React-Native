@@ -64,6 +64,7 @@ export default function Detail({ route }) {
                 image={`${data?.thumbnail?.path}.${data.thumbnail.extension}`}
                 name={data.name}
                 description={data.description} 
+                id={data.id}
               />
           )
         }
