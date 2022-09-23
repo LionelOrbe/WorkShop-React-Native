@@ -11,16 +11,13 @@ export default function Likes(){
     const navigation = useNavigation();
     const dispatch= useDispatch()
     const {likes} = useSelector(state => state); 
-    const [local, setLocal] = useState(likes)
+   // const [local, setLocal] = useState(likes)
      
-    useEffect(() => {
-        
-        dispatch(getLikes())
-       
-                     }, []);
+                      
       
     const styles = StyleSheet.create({
         container: {
+          //  flex:1,
          margin: 10,
          alignItems: 'center',
          backgroundColor: '#444444',
@@ -55,40 +52,37 @@ export default function Likes(){
           
         },
         close: {
-            marginTop: -5,
-            marginLeft: 9,
+            // marginTop: -2,
+            // marginLeft: 9,
             fontWeight: 'bold',
             fontSize:20,
             color: '#EDEDED',
             
         },
         closecontainer: {
-          
+            justifyContent: 'center',
             backgroundColor: 'red',
             borderRadius: 50,
             height:30,
             width:30,
             position: 'absolute', 
             right: 17, 
-            top: -360,
+            top: -315,
             zIndex: 2,
         },
         
         
       });
 
-    async function  onClose(id){
+    function  onClose(id){
                
-        const filtered = local.filter((e)=> e.id != id)
-          console.log('Filtered',filtered)
-
+        const filtered = likes.filter((e)=> e.id != id)
+         // console.log('Filtered',filtered)
+                    
         
-          setLocal(filtered)
-          
-        
-        console.log('setLikes to Local')
-        clearLikes()
-        setLikes(local)
+          //dispatch(clearLikes())
+          dispatch(setLikes(filtered))
+         // console.log('setLikes to Filtered')
          
         }
 
@@ -98,10 +92,10 @@ export default function Likes(){
             contentContainerStyle={{alignItems: 'center'}}
             horizontal
             ListEmptyComponent={<Text style={styles.text}>No Favourites</Text>}
-            data={local}
+            data={likes}
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => (
-                <View>
+                <View >
                     <TouchableOpacity onPress={() => navigation.navigate('Detail', {id:`${item.id}`})}>
                         <View style={[styles.container, styles.shadow]}>
                             <Image source={{uri: item.image}} style={styles.image} resizeMode='contain'/>
@@ -110,7 +104,7 @@ export default function Likes(){
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> onClose(item.id)}>
                             <View style={styles.closecontainer}>
-                                <Text style={styles.close}>x</Text>
+                                <Text style={styles.close}></Text>
                             </View>
                     </TouchableOpacity>
                 </View>

@@ -36,7 +36,7 @@ export default function Comics({ listComics }) {
         <View style={{ flex: 1, backgroundColor: '#444444' }}>
         {
           isLoading ? <ActivityIndicator size="large" color="#DA0037" style={{marginTop: 100}}/> 
-            : <FlatList
+            : data? <FlatList
             contentContainerStyle={{alignItems: 'center'}}
             data={data}
             keyExtractor={({ id }) => id.toString()}
@@ -48,7 +48,7 @@ export default function Comics({ listComics }) {
                 image={`${item?.thumbnail?.path}.${item.thumbnail.extension}`}  
               />
         )}
-      />
+      /> : <Text style={{color: '#444444'}}>(No comics available)</Text>
     }
   </View>
     )}

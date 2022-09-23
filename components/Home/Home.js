@@ -21,14 +21,17 @@ export default function Home() {
   const {likes} = useSelector(state => state) 
   const navigation = useNavigation();
  
-    
+
+  useEffect(() => {
+    dispatch(getLikes())
+           
+  }, [dispatch]);
 
   useEffect(() => {
     getData();
-    dispatch(getLikes())
+    
            
-  }, [likes]);
-
+  }, []);
   function searchCharacter() {
     if(search) {
       setLoading(true);
@@ -78,12 +81,7 @@ export default function Home() {
  
   //  console.log('Data', data.length)
   return (
-    <View style={{backgroundColor: '#171717'}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Likes')}>
-        {!likes.length==0? <MaterialCommunityIcons name="heart" color='red' size={25}  /> :
-                <MaterialCommunityIcons name="heart-outline" color='red' size={25}  />
-              }
-      </TouchableOpacity>
+    <View style={{backgroundColor: '#171717', flex: 1}}>
       {isLoading 
         ? <ActivityIndicator size="large" color="#DA0037" style={{marginTop: 100}}/>
         : 
@@ -101,14 +99,27 @@ export default function Home() {
             onEndReached={getData}
             onEndReachedThreshold={0.3}
             ListHeaderComponent={
-                <Searchbar
-                  style={{borderRadius: 10, margin: 10}}
-                  placeholder="Search characters..."
-                  onChangeText={value => setSearch(value)}
-                  value={search}
-                  onIconPress={searchCharacter}
-                  onSubmitEditing={searchCharacter}
-                                />}
+                <View style={{
+                  width: '100%',
+                  flexDirection:'row-reverse', 
+                  justifyContent: 'space-evenly',
+                  alignItems:'center'
+                              }}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Likes') }>
+                    {!likes.length==0? <MaterialCommunityIcons name="heart" color='red' size={30}  /> :
+                            <MaterialCommunityIcons name="heart-outline" color='red' size={30}  />
+                          }
+                  </TouchableOpacity>
+                  <Searchbar
+                    style={{borderRadius: 10, margin: 10, width: '85%'}}
+                    placeholder="Search characters..."
+                    onChangeText={value => setSearch(value)}
+                    value={search}
+                    onIconPress={searchCharacter}
+                    onSubmitEditing={searchCharacter}
+                  />
+                </View>
+                  }
             ListFooterComponent={isLoading2? <ActivityIndicator size="large" color="#DA0037"/> : null}  
                  />
       }

@@ -13,11 +13,12 @@ export default function Reducer (state = initialState, {type, payload}) {
         case "LIKE": 
         let liked = false;
         const LIKES = state.likes
-        for(let i=0; i<LIKES.length; i++ ){
+        if(LIKES){
+          for(let i=0; i<LIKES.length; i++ ){
             if(LIKES[i].id == payload.id){
               liked=true;
             }
-          }
+          }}
         if(!liked){
             return {
                 ...state,
