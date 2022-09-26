@@ -91,7 +91,7 @@ export default function Likes(){
             <FlatList
             contentContainerStyle={{alignItems: 'center'}}
             horizontal
-            ListEmptyComponent={<Text style={styles.text}>No Favourites</Text>}
+            ListEmptyComponent={<Text style={styles.text}>No Favorites</Text>}
             data={likes}
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => (

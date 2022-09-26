@@ -106,7 +106,7 @@ export default function Home() {
                   alignItems:'center'
                               }}>
                   <TouchableOpacity onPress={() => navigation.navigate('Likes') }>
-                    {!likes.length==0? <MaterialCommunityIcons name="heart" color='red' size={30}  /> :
+                    {!likes?.length==0? <MaterialCommunityIcons name="heart" color='red' size={30}  /> :
                             <MaterialCommunityIcons name="heart-outline" color='red' size={30}  />
                           }
                   </TouchableOpacity>

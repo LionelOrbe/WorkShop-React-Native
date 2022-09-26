@@ -76,14 +76,14 @@ export default function Information({ image, name, description, id }) {
         
       }
       useEffect(() => {
-         likes.forEach(e => { if(e.id == id) setLiked(true)
+         likes?.forEach(e => { if(e.id == id) setLiked(true)
           
          });
                
       }, [likes]);
     return (
       <View style={style.container}>
-        <TouchableOpacity onPress={()=>handleLike(name, image, id, liked, likes)}>
+        <TouchableOpacity onPress={()=>handleLike(name, image, id, liked)}>
           {
             liked? <MaterialCommunityIcons name="heart" color='red' size={30} style={style.heart} />:
             <MaterialCommunityIcons name="heart-outline" color='red' size={30} style={style.heart} />
