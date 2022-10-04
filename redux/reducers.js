@@ -4,28 +4,18 @@ const initialState = {
     
 }
 
-export default function Reducer (state = initialState, {type, payload}) {
+export default function Reducer (state = initialState, {type, payload, liked}) {
     switch(type){
         case "GET_LIKES": return {
             ...state,
             likes: payload
         }
-        case "LIKE": 
-        let liked = false;
-        const LIKES = state.likes
-        if(LIKES){
-          for(let i=0; i<LIKES.length; i++ ){
-            if(LIKES[i].id == payload.id){
-              liked=true;
-            }
-          }}
-        if(!liked){
-            return {
-                ...state,
-                likes: [...LIKES, payload]
-            }
+        case "LIKE": return{
+            ...state,
+            likes: payload
         }
-        else return  state;
+         
+         
         case "SET_LIKES": return{
             ...state,
             likes: payload

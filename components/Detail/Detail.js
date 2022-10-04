@@ -30,16 +30,27 @@ export default function Detail({ route }) {
 
   return (
     <Tab.Navigator
-      screenOptions={{header: ()=> null,}}
+      screenOptions={{header: ()=> null, 
+        "tabBarActiveTintColor": "#EDEDED",
+        "tabBarInactiveTintColor": "#444444",
+        "tabBarActiveBackgroundColor": "#171717",
+        "tabBarInactiveBackgroundColor": "#171717",
+        "tabBarStyle": [
+          {
+            "display": "flex"
+          },
+          null
+        ]
+      }}
       initialRouteName="Information"
-      tabBarOptions={{
-        activeTintColor: '#EDEDED',
-        inactiveTintColor: '#444444',
-        activeBackgroundColor: '#171717',
-        inactiveBackgroundColor: '#171717',
+      // tabBarOptions={{
+      //   activeTintColor: '#EDEDED',
+      //   inactiveTintColor: '#444444',
+      //   activeBackgroundColor: '#171717',
+      //   inactiveBackgroundColor: '#171717',
 
         
-      }}
+      // }}
     >
       <Tab.Screen 
         name="Information" 

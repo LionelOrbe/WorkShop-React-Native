@@ -70,7 +70,7 @@ export default function Information({ image, name, description, id }) {
       const {likes} = useSelector(state => state);  
       const [liked, setLiked] = useState(false)
       
-      function handleLike(name, image, id, liked){
+      function handleLike(name, image, id){
       //  console.log('handleLIKE')
        dispatch(like(name, image, id, liked, likes))
         
@@ -83,7 +83,7 @@ export default function Information({ image, name, description, id }) {
       }, [likes]);
     return (
       <View style={style.container}>
-        <TouchableOpacity onPress={()=>handleLike(name, image, id, liked)}>
+        <TouchableOpacity onPress={()=>handleLike(name, image, id)}>
           {
             liked? <MaterialCommunityIcons name="heart" color='red' size={30} style={style.heart} />:
             <MaterialCommunityIcons name="heart-outline" color='red' size={30} style={style.heart} />
