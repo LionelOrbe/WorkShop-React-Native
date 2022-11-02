@@ -35,7 +35,7 @@ export function setLikes(likes){
   //  console.log('setLikes en ACTIONS')
     return async function(dispatch){
         const jsonValue = JSON.stringify(likes)
-       await AsyncStorage.clear()
+       await AsyncStorage. removeItem('likes')
         await AsyncStorage.setItem('likes', jsonValue)
      //   console.log('Async en ACTIONS')
         return dispatch({
